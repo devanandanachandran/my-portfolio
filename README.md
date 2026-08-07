@@ -3,7 +3,7 @@
 My personal developer portfolio, built to showcase my projects and skills as I look for internship and full-time opportunities in AI/ML and full-stack development.
 
 ## Live Site
-🌐 [Add your Vercel link here once deployed]
+🌐 https://my-portfolio-devanandana.vercel.app/
 
 ## About Me
 Final-year B.Tech Computer Science student, focused on AI/ML and full-stack development. GATE 2026 qualified (CS/IT).
