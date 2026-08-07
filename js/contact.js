@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Handle form submission with feedback
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission
     const form = e.target;
     const submitBtn = form.querySelector(".submit-btn"); // Submit button
@@ -172,16 +172,28 @@ document.addEventListener("DOMContentLoaded", () => {
     submitBtn.style.transform = "translateY(-1px)"; // Slight button press effect
     submitBtn.textContent = "Sending..."; // Update button text
     submitBtn.disabled = true; // Disable button
-    setTimeout(() => {
+
+    try {
+      const response = await fetch("https://formspree.io/f/mvkpglpl", {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+
+      if (!response.ok) throw new Error("Submission failed");
+
       form.reset(); // Reset form
-      submitBtn.textContent = "Send Message"; // Restore button text
-      submitBtn.disabled = false; // Enable button
-      submitBtn.style.transform = ""; // Reset button style
       successMessage.classList.add("show"); // Show success message
       setTimeout(() => {
         successMessage.classList.remove("show"); // Hide after 5s
       }, 5000);
-    }, 1500); // Simulate form submission delay
+    } catch (err) {
+      alert("Something went wrong sending your message. Please email me directly instead.");
+    } finally {
+      submitBtn.textContent = "Send Message"; // Restore button text
+      submitBtn.disabled = false; // Enable button
+      submitBtn.style.transform = ""; // Reset button style
+    }
   };
 
   // Enhance form inputs with focus/blur animations
